@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
+  <head>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta http-equiv="Content-Type" content="text/HTML; charset=ISO-8859-1" />   -->
-    <title>Jokes :: Home</title>
+    <title>Jokes :: Categoria</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="styles/home.css"/>
-    <!-- <script src="main.js"></script> -->
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles/category.css"/>
+  </head>
+  <body>
     <div class="header">
         <div class="img">
             <p>Jokes</p>
@@ -35,10 +33,7 @@
 
                 if($result = $conn->query($sql)) {
                     while ($row = $result->fetch_assoc()) {
-                        echo "<tr><td><a href='category.php?category=".
-                          $row['name']."'>".
-                          $row['name'].
-                          "</a></td></tr>";
+                        echo "<tr><td>".$row['name']."</td></tr>";
                     }
                 }
             ?>
@@ -48,8 +43,11 @@
         <table class="jokestable">
         <?php
             $sql = "SELECT j.joketext, j.jokedate , a.name
-                    FROM joke j, author a
-                    WHERE j.idauthor = a.id";
+                    FROM joke j, author a, jokecategory jc, category c
+                    WHERE c.name = '".$_GET["category"]."'
+                    AND j.idauthor = a.id
+                    AND j.id = jc.jokeid
+                    AND jc.categoryid = c.id";
 
             if($result = $conn->query($sql)) {
                 while ($row = $result->fetch_assoc()) {
@@ -68,5 +66,5 @@
         </table>
     </div>
     <div class="footer"></div>
-</body>
+  </body>
 </html>

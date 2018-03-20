@@ -51,6 +51,42 @@ div#navbar {
     top: 0; */
 }
 
+table.categoriestable {
+    margin: 20px 0 5% 5%;
+    width: 95%;
+}
+
+td.categoriestitle {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-transform: uppercase;
+    /* margin-bottom: 10px; */
+}
+
+div.img {
+    background-image: url("../img/bg_home.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 -30px;
+    padding: 150px 0 150px 0;
+    text-align: center;
+}
+
+div.img p {
+  font-size: 80px;
+  text-transform: uppercase;
+  font-weight: bold;
+  /* border: 1px solid #fff; */
+  color: #eee;
+  text-shadow:
+   -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+     2px 2px 0 #000;
+}
+
 @media screen and (max-width:700px) {
     div.sidebar {
         float: none;
