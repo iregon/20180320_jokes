@@ -6,7 +6,8 @@
     <title>Jokes :: Categoria</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="styles/category.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles/joketable.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
     <div class="header">
@@ -24,7 +25,7 @@
     </div>
     <div class="sidebar">
         <table class="categoriestable">
-            <tr><td class="categoriestitle">Categorie</td></tr>
+            <tr><td class="categoriestitle">Barzellette su...</td></tr>
             <?php
                 include("conn.php");
 
@@ -33,7 +34,10 @@
 
                 if($result = $conn->query($sql)) {
                     while ($row = $result->fetch_assoc()) {
-                        echo "<tr><td>".$row['name']."</td></tr>";
+                        echo "<tr><td><a href='category.php?category=".
+                          $row['name']."'>".
+                          $row['name'].
+                          "</a></td></tr>";
                     }
                 }
             ?>
@@ -42,7 +46,7 @@
     <div class="content">
         <table class="jokestable">
         <?php
-            $sql = "SELECT j.joketext, j.jokedate , a.name
+            $sql = "SELECT j.id, j.joketext, j.jokedate , a.name, j.like, j.unlike
                     FROM joke j, author a, jokecategory jc, category c
                     WHERE c.name = '".$_GET["category"]."'
                     AND j.idauthor = a.id
@@ -53,12 +57,31 @@
                 while ($row = $result->fetch_assoc()) {
                     $newDate = date("d-m-Y", strtotime($row['jokedate']));
 
-                    echo "<tr><td style='border-left:5px solid rgb(".
-                        rand(0,255).",".rand(0,255).",".rand(0,255).
-                        ")'><p class='text'>".
-                        $row['joketext'].
-                        "</p><br><p class='author'>Creata da ".
+                    echo "<tr>
+                        <td style='border-left:5px solid rgb(".
+                        rand(50,255).",".rand(50,255).",".rand(50,255).
+                        ")'>
+                        <p class='text'>".
+                        str_replace("\n", "<br>", $row['joketext']).
+                        "</p>
+                        <p class='author'>Creata da ".
                         $row['name']." il ". $newDate.
+                        "</p><br>
+                        <div class='jokeinfo'>
+                        <div class='info'>
+                        <a href='detail.php?id=".
+                        $row['id'].
+                        "'><i class='material-icons'>&#xE5C8;</i></a>
+                        </div>
+                        <span class='unlike'>".
+                        $row['unlike'].
+                        "</span>
+                        <img src='img/unlike.png' class='unlike'>
+                        <span class='like'>".
+                        $row['like'].
+                        "</span>
+                        <img src='img/like.png' class='like'>
+                        </div></td></tr><tr><td class='spacer'></td></tr>"; $newDate.
                         "</p></td></tr>";
                 }
             }

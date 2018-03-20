@@ -93,6 +93,11 @@ div.img p {
         width: 100%;
     }
 
+    table.categoriestable {
+        margin: 20px 5% 5% 5%;
+        width: 90%;
+    }
+
     div.content {
         float: none;
         width: 100%;
