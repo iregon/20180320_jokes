@@ -47,13 +47,14 @@
 
             if($result = $conn->query($sql)) {
                 while ($row = $result->fetch_assoc()) {
+                    $newDate = date("d-m-Y", strtotime($row['jokedate']));
+
                     echo "<tr><td style='border-left:5px solid rgb(".
                           rand(0,255).",".rand(0,255).",".rand(0,255).
                           ")'><p class='text'>".
                           $row['joketext'].
                           "</p><br><p class='author'>Creata da ".
-                          $row['name']." il ".
-                          $row['jokedate'].
+                          $row['name']." il ". $newDate.
                           "</p></td></tr>";
                 }
             }
