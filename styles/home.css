@@ -15,6 +15,14 @@ td.categoriestitle {
     /* margin-bottom: 10px; */
 }
 
+.img {
+    background-image: url("../img/bg_home.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 300px 0 300px 0;
+}
+
 /*Tabella barzellette*/
 table.jokestable {
     margin: 20px;

@@ -12,6 +12,9 @@
 </head>
 <body>
     <div class="header">
+        <div class="img">
+            Jokes
+        </div>
         <div id="navbar">
             <ul class="navbar">
                 <li><a class="active" href="#home">Home</a></li>
