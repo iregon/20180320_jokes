@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta http-equiv="Content-Type" content="text/HTML; charset=ISO-8859-1" />   -->
     <title>Jokes :: Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
@@ -23,7 +24,7 @@
     </div>
     <div class="sidebar">
         <table class="categoriestable">
-            <tr><th>Categorie</th></tr>
+            <tr><td class="categoriestitle">Categorie</td></tr>
             <?php
                 include("conn.php");
 
@@ -50,12 +51,12 @@
                     $newDate = date("d-m-Y", strtotime($row['jokedate']));
 
                     echo "<tr><td style='border-left:5px solid rgb(".
-                          rand(0,255).",".rand(0,255).",".rand(0,255).
-                          ")'><p class='text'>".
-                          $row['joketext'].
-                          "</p><br><p class='author'>Creata da ".
-                          $row['name']." il ". $newDate.
-                          "</p></td></tr>";
+                        rand(0,255).",".rand(0,255).",".rand(0,255).
+                        ")'><p class='text'>".
+                        $row['joketext'].
+                        "</p><br><p class='author'>Creata da ".
+                        $row['name']." il ". $newDate.
+                        "</p></td></tr>";
                 }
             }
         ?>

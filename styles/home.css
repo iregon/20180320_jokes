@@ -3,7 +3,16 @@
 } */
 
 table.categoriestable {
-    margin: 20px;
+    margin: 20px 0 5% 5%;
+    width: 80%;
+}
+
+td.categoriestitle {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-transform: uppercase;
+    /* margin-bottom: 10px; */
 }
 
 /*Tabella barzellette*/

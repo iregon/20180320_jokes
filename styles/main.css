@@ -67,4 +67,8 @@ div#navbar {
         float: none;
         width: 100%;
     }
+
+    ul.navbar li {
+        width: 100%;
+    }
 }
