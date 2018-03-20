@@ -69,13 +69,13 @@
                         $row['name']." il ". $newDate.
                         "</p><br>
                         <div class='jokeinfo'>
-                        <p class='unlike'>".
+                        <span class='unlike'>".
                         $row['unlike'].
-                        "</p>
+                        "</span>
                         <img src='img/unlike.png' class='unlike'>
-                        <p class='like'>".
+                        <span class='like'>".
                         $row['like'].
-                        "</p>
+                        "</span>
                         <img src='img/like.png' class='like'>
                         </div></td></tr>";
                 }
