@@ -44,6 +44,11 @@ ul.navbar li a:hover {
     background-color: #4f4fff;
 }
 
+ul.navbar li.login,
+ul.navbar li.singup {
+  float: right;
+}
+
 div#navbar {
     border-bottom: 5px solid #4f4fff;
     /* position: -webkit-sticky;
