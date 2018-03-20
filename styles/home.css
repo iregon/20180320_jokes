@@ -1,5 +1,5 @@
 /* div.content {
-    
+
 } */
 
 table.categoriestable {
@@ -15,12 +15,27 @@ td.categoriestitle {
     /* margin-bottom: 10px; */
 }
 
-.img {
+div.img {
     background-image: url("../img/bg_home.jpg");
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 300px 0 300px 0;
+    background-position: 0 -30px;
+    padding: 150px 0 150px 0;
+    text-align: center;
+}
+
+div.img p {
+  font-size: 80px;
+  text-transform: uppercase;
+  font-weight: bold;
+  /* border: 1px solid #fff; */
+  color: #eee;
+  text-shadow:
+   -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+     2px 2px 0 #000;
 }
 
 /*Tabella barzellette*/

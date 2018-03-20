@@ -13,7 +13,7 @@
 <body>
     <div class="header">
         <div class="img">
-            Jokes
+            <p>Jokes</p>
         </div>
         <div id="navbar">
             <ul class="navbar">
@@ -23,7 +23,6 @@
                 <li><a href="#about">About</a></li>
             </ul>
         </div>
-        
     </div>
     <div class="sidebar">
         <table class="categoriestable">
