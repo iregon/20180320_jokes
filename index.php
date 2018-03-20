@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="styles/joketable.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- <script src="main.js"></script> -->
 </head>
 <body>
@@ -50,7 +51,7 @@
     <div class="content">
         <table class="jokestable">
         <?php
-            $sql = "SELECT j.joketext, j.jokedate , a.name, j.like, j.unlike
+            $sql = "SELECT j.id, j.joketext, j.jokedate , a.name, j.like, j.unlike
                     FROM joke j, author a
                     WHERE j.idauthor = a.id";
 
@@ -69,6 +70,11 @@
                         $row['name']." il ". $newDate.
                         "</p><br>
                         <div class='jokeinfo'>
+                        <div class='info'>
+                        <a href='detail.php?id=".
+                        $row['id'].
+                        "'><i class='material-icons'>&#xE5C8;</i></a>
+                        </div>
                         <span class='unlike'>".
                         $row['unlike'].
                         "</span>
@@ -77,7 +83,7 @@
                         $row['like'].
                         "</span>
                         <img src='img/like.png' class='like'>
-                        </div></td></tr>";
+                        </div></td></tr><tr><td class='spacer'></td></tr>";
                 }
             }
         ?>
