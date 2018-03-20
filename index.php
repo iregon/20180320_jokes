@@ -10,7 +10,17 @@
     <!-- <script src="main.js"></script> -->
 </head>
 <body>
-    <div class="header"></div>
+    <div class="header">
+        <div id="navbar">
+            <ul class="navbar">
+                <li><a class="active" href="#home">Home</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+        
+    </div>
     <div class="sidebar">
         <table class="categoriestable">
             <tr><th>Categorie</th></tr>
@@ -37,7 +47,14 @@
 
             if($result = $conn->query($sql)) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<tr><td>".$row['joketext']."</td></tr>";
+                    echo "<tr><td style='border-left:5px solid rgb(".
+                          rand(0,255).",".rand(0,255).",".rand(0,255).
+                          ")'><p class='text'>".
+                          $row['joketext'].
+                          "</p><br><p class='author'>Creata da ".
+                          $row['name']." il ".
+                          $row['jokedate'].
+                          "</p></td></tr>";
                 }
             }
         ?>
