@@ -4,11 +4,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta http-equiv="Content-Type" content="text/HTML; charset=ISO-8859-1" />   -->
     <title>Jokes :: Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="styles/home.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles/joketable.css"/>
     <!-- <script src="main.js"></script> -->
 </head>
 <body>
@@ -51,7 +50,7 @@
     <div class="content">
         <table class="jokestable">
         <?php
-            $sql = "SELECT j.joketext, j.jokedate , a.name
+            $sql = "SELECT j.joketext, j.jokedate , a.name, j.like, j.unlike
                     FROM joke j, author a
                     WHERE j.idauthor = a.id";
 
@@ -59,13 +58,26 @@
                 while ($row = $result->fetch_assoc()) {
                     $newDate = date("d-m-Y", strtotime($row['jokedate']));
 
-                    echo "<tr><td style='border-left:5px solid rgb(".
+                    echo "<tr>
+                        <td style='border-left:5px solid rgb(".
                         rand(50,255).",".rand(50,255).",".rand(50,255).
-                        ")'><p class='text'>".
+                        ")'>
+                        <p class='text'>".
                         str_replace("\n", "<br>", $row['joketext']).
-                        "</p><br><p class='author'>Creata da ".
+                        "</p>
+                        <p class='author'>Creata da ".
                         $row['name']." il ". $newDate.
-                        "</p></td></tr>";
+                        "</p><br>
+                        <div class='jokeinfo'>
+                        <p class='unlike'>".
+                        $row['unlike'].
+                        "</p>
+                        <img src='img/unlike.png' class='unlike'>
+                        <p class='like'>".
+                        $row['like'].
+                        "</p>
+                        <img src='img/like.png' class='like'>
+                        </div></td></tr>";
                 }
             }
         ?>

@@ -1,0 +1,46 @@
+/*Tabella barzellette*/
+table.jokestable {
+    margin: 20px 3% 3% 3%;
+    width: 94%;
+}
+
+table.jokestable tr td {
+    /* border: 1px solid #000; */
+    background-color: #333;
+    color: #fff;
+
+}
+
+table.jokestable tr td p.author {
+    float: right;
+    padding: 10px 20px 10px 0px;
+}
+
+table.jokestable tr td p.text {
+    padding: 20px 20px 0 20px;
+}
+
+table.jokestable tr td div.jokeinfo {
+  width: 100%;
+  background-color: #000;
+  text-align: right;
+  overflow: hidden;
+}
+
+table.jokestable tr td div.jokeinfo img.like,
+table.jokestable tr td div.jokeinfo img.unlike,
+table.jokestable tr td div.jokeinfo p.like,
+table.jokestable tr td div.jokeinfo p.unlike {
+  float: right;
+}
+
+table.jokestable tr td div.jokeinfo img.like,
+table.jokestable tr td div.jokeinfo img.unlike {
+  -webkit-filter: invert(100%);
+}
+
+table.jokestable tr td div.jokeinfo p.like,
+table.jokestable tr td div.jokeinfo p.unlike {
+  height: 100%;
+  vertical-align: middle;
+}
