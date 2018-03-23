@@ -82,7 +82,10 @@
                         <span class='like'>".
                         $row['like'].
                         "</span>
-                        <img src='img/like.png' class='like'>
+                        <form action='".$_SERVER["PHP_SELF"]."'>
+                        <input type='submit' value='aaa'>
+                          <img src='img/like.png' class='like'>
+                        </form>
                         </div></td></tr><tr><td class='spacer'></td></tr>";
                 }
             }
@@ -92,3 +95,25 @@
     <div class="footer"></div>
 </body>
 </html>
+
+<?php
+  if($_POST) {
+    if(isset($_COOKIE["counter_like"]))
+    {
+        // echo "-1";
+        exit;
+    }
+    setcookie("counter_like", "liked");
+    if(mysqli_real_escape_string($conn, $_POST['op']) == 'like')
+    {
+        $update = "like=like+1";
+    }
+    if(mysqli_real_escape_string($conn, $_POST['op']) == 'unlike')
+    {
+        $update = "unlike=unlike+1";
+    }
+    mysqli_query($conn, "UPDATE joke SET ".$update." WHERE id=".$_POST['id']);
+    // echo 1;
+    exit;
+  }
+?>
