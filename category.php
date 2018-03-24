@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <head>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Jokes :: Home</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Jokes :: Categoria</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="styles/joketable.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- <script src="main.js"></script> -->
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
         <div class="img">
             <p>Jokes</p>
@@ -52,8 +51,11 @@
         <table class="jokestable">
         <?php
             $sql = "SELECT j.id, j.joketext, j.jokedate , a.name, j.like, j.unlike
-                    FROM joke j, author a
-                    WHERE j.idauthor = a.id";
+                    FROM joke j, author a, jokecategory jc, category c
+                    WHERE c.name = '".$_GET["category"]."'
+                    AND j.idauthor = a.id
+                    AND j.id = jc.jokeid
+                    AND jc.categoryid = c.id";
 
             if($result = $conn->query($sql)) {
                 while ($row = $result->fetch_assoc()) {
@@ -82,10 +84,7 @@
                         <span class='like'>".
                         $row['like'].
                         "</span>
-                        <form action='".$_SERVER["PHP_SELF"]."'>
-                        <input type='submit' value='aaa'>
-                          <img src='img/like.png' class='like'>
-                        </form>
+                        <img src='img/like.png' class='like'>
                         </div></td></tr><tr><td class='spacer'></td></tr>";
                 }
             }
@@ -93,27 +92,5 @@
         </table>
     </div>
     <div class="footer"></div>
-</body>
+  </body>
 </html>
-
-<?php
-  if($_POST) {
-    if(isset($_COOKIE["counter_like"]))
-    {
-        // echo "-1";
-        exit;
-    }
-    setcookie("counter_like", "liked");
-    if(mysqli_real_escape_string($conn, $_POST['op']) == 'like')
-    {
-        $update = "like=like+1";
-    }
-    if(mysqli_real_escape_string($conn, $_POST['op']) == 'unlike')
-    {
-        $update = "unlike=unlike+1";
-    }
-    mysqli_query($conn, "UPDATE joke SET ".$update." WHERE id=".$_POST['id']);
-    // echo 1;
-    exit;
-  }
-?>
