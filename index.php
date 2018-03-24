@@ -1,3 +1,36 @@
+<?php
+  if($_POST) {
+
+    $info = explode("-", $_POST["action"]);
+
+    if(isset($_COOKIE["counter_like"])) $cookie = $_COOKIE["counter_like"];
+    else setcookie("counter_like", " ");
+
+    $id_list = explode("-", $_COOKIE["counter_like"]);
+    
+    foreach ($id_list as $id) {
+        if($info[0] == $id) {
+            header("Location: ".$_SERVER["PHP_SELF"]);
+        }
+    }
+
+    setcookie("counter_like", $cookie.$info[0]."-");
+
+    if(mysqli_real_escape_string($conn, $info[1]) == 'like')
+    {
+        $update = "like=like+1";
+    }
+    if(mysqli_real_escape_string($conn, $info[1]) == 'unlike')
+    {
+        $update = "unlike=unlike+1";
+    }
+
+    mysqli_query($conn, "UPDATE joke SET ".$update." WHERE id=".$_POST['id']);
+    // echo 1;
+    header("Location: ".$_SERVER["PHP_SELF"]);
+  }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +63,7 @@
             <tr><td class="categoriestitle">Barzellette su...</td></tr>
             <?php
                 include("conn.php");
-                header("Content-Type: text/html;charset=utf-8");
+                // header("Content-Type: text/html;charset=utf-8");
 
                 $conn->query("SET NAMES 'utf8'");
 
@@ -78,13 +111,14 @@
                         <span class='unlike'>".
                         $row['unlike'].
                         "</span>
-                        <img src='img/unlike.png' class='unlike'>
+                        <form action='".$_SERVER["PHP_SELF"]."' method='POST'>
+                            <button type='submit' name='action' value='".$row['id']."-unlike'><img src='img/unlike.png' class='unlike'></button>
+                        </form>
                         <span class='like'>".
                         $row['like'].
                         "</span>
-                        <form action='".$_SERVER["PHP_SELF"]."'>
-                        <input type='submit' value='aaa'>
-                          <img src='img/like.png' class='like'>
+                        <form action='".$_SERVER["PHP_SELF"]."' method='POST'>
+                            <button type='submit' name='action' value='".$row['id']."-like'><img src='img/like.png' class='like'></button>
                         </form>
                         </div></td></tr><tr><td class='spacer'></td></tr>";
                 }
@@ -96,24 +130,3 @@
 </body>
 </html>
 
-<?php
-  if($_POST) {
-    if(isset($_COOKIE["counter_like"]))
-    {
-        // echo "-1";
-        exit;
-    }
-    setcookie("counter_like", "liked");
-    if(mysqli_real_escape_string($conn, $_POST['op']) == 'like')
-    {
-        $update = "like=like+1";
-    }
-    if(mysqli_real_escape_string($conn, $_POST['op']) == 'unlike')
-    {
-        $update = "unlike=unlike+1";
-    }
-    mysqli_query($conn, "UPDATE joke SET ".$update." WHERE id=".$_POST['id']);
-    // echo 1;
-    exit;
-  }
-?>
