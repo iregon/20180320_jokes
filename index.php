@@ -1,33 +1,47 @@
 <?php
+  include("conn.php");
   if($_POST) {
 
     $info = explode("-", $_POST["action"]);
 
-    if(isset($_COOKIE["counter_like"])) $cookie = $_COOKIE["counter_like"];
-    else setcookie("counter_like", " ");
+    if(empty($_COOKIE["counter_like"])) {
+      setcookie("counter_like", "", 0, "/");
+      // echo "Cookie creato";
+    }
 
-    $id_list = explode("-", $_COOKIE["counter_like"]);
-    
+    // echo "Contenuto: ".$_COOKIE["counter_like"]."<br>";
+    $id_list = explode("-", $_COOKIE["counter_like"], -1);
+    // echo count($id_list)."<br>";
+    // echo print_r($id_list);
+
+    $is_break = false;
     foreach ($id_list as $id) {
         if($info[0] == $id) {
-            header("Location: ".$_SERVER["PHP_SELF"]);
+            $is_break = true;
+            break;
         }
     }
 
-    setcookie("counter_like", $cookie.$info[0]."-");
+    if(!$is_break) {
+      $cookie = $_COOKIE["counter_like"];
+      setcookie("counter_like", $cookie.$info[0]."-", 0, "/");
 
-    if(mysqli_real_escape_string($conn, $info[1]) == 'like')
-    {
-        $update = "like=like+1";
-    }
-    if(mysqli_real_escape_string($conn, $info[1]) == 'unlike')
-    {
-        $update = "unlike=unlike+1";
-    }
+      if($info[1] == 'like')
+      {
+          $update = "like=like+1";
+      }
+      if($info[1] == 'unlike')
+      {
+          $update = "unlike=unlike+1";
+      }
 
-    mysqli_query($conn, "UPDATE joke SET ".$update." WHERE id=".$_POST['id']);
-    // echo 1;
-    header("Location: ".$_SERVER["PHP_SELF"]);
+      $query = "UPDATE joke SET ".$update." WHERE id=".$info[0];
+
+      if($result = $conn->query($query)) 
+        setcookie("query", $query, 0, "/");
+      // echo 1;
+      header("Location: ".$_SERVER["PHP_SELF"]);
+    }
   }
 ?>
 
@@ -126,7 +140,8 @@
         ?>
         </table>
     </div>
-    <div class="footer"></div>
+    <div class="footer">
+      <p>Testo a caso</p>
+    </div>
 </body>
 </html>
-

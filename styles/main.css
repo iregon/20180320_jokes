@@ -92,6 +92,10 @@ div.img p {
      2px 2px 0 #000;
 }
 
+div.footer {
+  clear: both;
+}
+
 @media screen and (max-width:700px) {
     div.sidebar {
         float: none;
