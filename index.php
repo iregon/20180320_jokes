@@ -9,10 +9,7 @@
       // echo "Cookie creato";
     }
 
-    // echo "Contenuto: ".$_COOKIE["counter_like"]."<br>";
     $id_list = explode("-", $_COOKIE["counter_like"], -1);
-    // echo count($id_list)."<br>";
-    // echo print_r($id_list);
 
     $is_break = false;
     foreach ($id_list as $id) {
@@ -28,18 +25,17 @@
 
       if($info[1] == 'like')
       {
-          $update = "like=like+1";
+          $update = "likeCounter=likeCounter+1";
       }
       if($info[1] == 'unlike')
       {
-          $update = "unlike=unlike+1";
+          $update = "unlikeCounter=unlikeCounter+1";
       }
 
       $query = "UPDATE joke SET ".$update." WHERE id=".$info[0];
 
-      if($result = $conn->query($query)) 
-        setcookie("query", $query, 0, "/");
-      // echo 1;
+      $result = $conn->query($query);
+
       header("Location: ".$_SERVER["PHP_SELF"]);
     }
   }
@@ -98,7 +94,7 @@
     <div class="content">
         <table class="jokestable">
         <?php
-            $sql = "SELECT j.id, j.joketext, j.jokedate , a.name, j.like, j.unlike
+            $sql = "SELECT j.id, j.joketext, j.jokedate , a.name, j.likeCounter, j.unlikeCounter
                     FROM joke j, author a
                     WHERE j.idauthor = a.id";
 
@@ -123,13 +119,13 @@
                         "'><i class='material-icons'>&#xE5C8;</i></a>
                         </div>
                         <span class='unlike'>".
-                        $row['unlike'].
+                        $row['unlikeCounter'].
                         "</span>
                         <form action='".$_SERVER["PHP_SELF"]."' method='POST'>
                             <button type='submit' name='action' value='".$row['id']."-unlike'><img src='img/unlike.png' class='unlike'></button>
                         </form>
                         <span class='like'>".
-                        $row['like'].
+                        $row['likeCounter'].
                         "</span>
                         <form action='".$_SERVER["PHP_SELF"]."' method='POST'>
                             <button type='submit' name='action' value='".$row['id']."-like'><img src='img/like.png' class='like'></button>
@@ -141,7 +137,7 @@
         </table>
     </div>
     <div class="footer">
-      <p>Testo a caso</p>
+      <p>Testo a caso nel footer</p>
     </div>
 </body>
 </html>
