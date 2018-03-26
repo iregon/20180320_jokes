@@ -56,6 +56,36 @@ div#navbar {
     top: 0; */
 }
 
+li.searchbar {
+  float: right !important;
+}
+
+li.searchbar input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('../img/ic_search_black_24dp_1x.png');
+    /* background-position: 10px 10px; */
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 6px 20px 6px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    /* vertical-align: middle; */
+    margin: 5px 20px 5px 0;
+}
+
+li.searchbar input[type=text]::after {
+  content: "&#xE8B6;";
+}
+
+li.searchbar input[type=text]:focus {
+    width: 300px;
+}
+
 table.categoriestable {
     margin: 20px 0 5% 5%;
     width: 95%;

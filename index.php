@@ -25,10 +25,12 @@
 
       if($info[1] == 'like')
       {
+        echo "string";
           $update = "likeCounter=likeCounter+1";
       }
       if($info[1] == 'unlike')
       {
+        echo "string";
           $update = "unlikeCounter=unlikeCounter+1";
       }
 
@@ -65,6 +67,7 @@
                 <li><a href="#news">News</a></li>
                 <li class="singup"><a href="#about">Registrati</a></li>
                 <li class="login"><a href="#contact">Login</a></li>
+                <li class="searchbar"><input type="text" name="search" placeholder="Search.."></li>
             </ul>
         </div>
     </div>
