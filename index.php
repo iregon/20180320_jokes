@@ -102,9 +102,10 @@
                 <li class="singup"><a href="#about">Registrati</a></li>
                 <li class="login"><a href="#contact">Login</a></li>
                 <li class="searchbar">
-                    <for
-                  <input type="text" placeholder="Cerca un autore"
-                    id="autocomplete" list="json-datalist">
+                    <form action="">
+                        <input type="text" placeholder="Cerca un autore"
+                        id="autocomplete" list="json-datalist">
+                    </form>
                 </li>
                 <datalist id="json-datalist"></datalist>
             </ul>
