@@ -1,33 +1,45 @@
 <?php
+  include("conn.php");
   if($_POST) {
 
     $info = explode("-", $_POST["action"]);
 
-    if(isset($_COOKIE["counter_like"])) $cookie = $_COOKIE["counter_like"];
-    else setcookie("counter_like", " ");
+    if(empty($_COOKIE["counter_like"])) {
+      setcookie("counter_like", "", 0, "/");
+      // echo "Cookie creato";
+    }
 
-    $id_list = explode("-", $_COOKIE["counter_like"]);
-    
+    $id_list = explode("-", $_COOKIE["counter_like"], -1);
+
+    $is_break = false;
     foreach ($id_list as $id) {
         if($info[0] == $id) {
-            header("Location: ".$_SERVER["PHP_SELF"]);
+            $is_break = true;
+            break;
         }
     }
 
-    setcookie("counter_like", $cookie.$info[0]."-");
+    if(!$is_break) {
+      $cookie = $_COOKIE["counter_like"];
+      setcookie("counter_like", $cookie.$info[0]."-", 0, "/");
 
-    if(mysqli_real_escape_string($conn, $info[1]) == 'like')
-    {
-        $update = "like=like+1";
-    }
-    if(mysqli_real_escape_string($conn, $info[1]) == 'unlike')
-    {
-        $update = "unlike=unlike+1";
-    }
+      if($info[1] == 'like')
+      {
+        echo "string";
+          $update = "likeCounter=likeCounter+1";
+      }
+      if($info[1] == 'unlike')
+      {
+        echo "string";
+          $update = "unlikeCounter=unlikeCounter+1";
+      }
 
-    mysqli_query($conn, "UPDATE joke SET ".$update." WHERE id=".$_POST['id']);
-    // echo 1;
-    header("Location: ".$_SERVER["PHP_SELF"]);
+      $query = "UPDATE joke SET ".$update." WHERE id=".$info[0];
+
+      $result = $conn->query($query);
+
+      header("Location: ".$_SERVER["PHP_SELF"]);
+    }
   }
 ?>
 
@@ -42,7 +54,41 @@
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="styles/joketable.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- <script src="main.js"></script> -->
+    <!-- <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <script type="text/javascript">
+      function loadAuthors() {
+        var dataList = document.getElementById('json-datalist');
+
+        // Clean datalist options
+        dataList.innerHTML = "";
+        
+        var sugg = document.getElementById("autocomplete").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            var jsonOptions = JSON.parse(this.responseText);
+
+            jsonOptions.forEach(function(item) {
+              // Create a new <option> element.
+              var option = document.createElement('option');
+              // Set the value using the item in the JSON array.
+              option.value = item;
+              // Add the <option> element to the <datalist>.
+              dataList.appendChild(option);
+            });
+            // $( "#autocomplete" ).autocomplete({
+            //   source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ]
+            // });
+          }
+        };
+
+        // console.log("getAuthors.php?sugg=" + sugg);
+        xhttp.open("GET", "getAuthors.php?sugg=" + sugg, true);
+        xhttp.send();
+      }
+    </script>
 </head>
 <body>
     <div class="header">
@@ -55,10 +101,19 @@
                 <li><a href="#news">News</a></li>
                 <li class="singup"><a href="#about">Registrati</a></li>
                 <li class="login"><a href="#contact">Login</a></li>
+                <li class="searchbar">
+                  <input type="text" placeholder="Cerca un autore"
+                    id="autocomplete" onkeyup="loadAuthors()"
+                    list="json-datalist">
+                </li>
+                <datalist id="json-datalist">
+
+                </datalist>
             </ul>
         </div>
     </div>
     <div class="sidebar">
+      <p id="demo"></p>
         <table class="categoriestable">
             <tr><td class="categoriestitle">Barzellette su...</td></tr>
             <?php
@@ -68,7 +123,8 @@
                 $conn->query("SET NAMES 'utf8'");
 
                 $sql = "SELECT name
-                        FROM category";
+                        FROM category
+                        ORDER BY name";
 
                 if($result = $conn->query($sql)) {
                     while ($row = $result->fetch_assoc()) {
@@ -84,7 +140,7 @@
     <div class="content">
         <table class="jokestable">
         <?php
-            $sql = "SELECT j.id, j.joketext, j.jokedate , a.name, j.like, j.unlike
+            $sql = "SELECT j.id, j.joketext, j.jokedate , a.name, j.likeCounter, j.unlikeCounter
                     FROM joke j, author a
                     WHERE j.idauthor = a.id";
 
@@ -109,13 +165,13 @@
                         "'><i class='material-icons'>&#xE5C8;</i></a>
                         </div>
                         <span class='unlike'>".
-                        $row['unlike'].
+                        $row['unlikeCounter'].
                         "</span>
                         <form action='".$_SERVER["PHP_SELF"]."' method='POST'>
                             <button type='submit' name='action' value='".$row['id']."-unlike'><img src='img/unlike.png' class='unlike'></button>
                         </form>
                         <span class='like'>".
-                        $row['like'].
+                        $row['likeCounter'].
                         "</span>
                         <form action='".$_SERVER["PHP_SELF"]."' method='POST'>
                             <button type='submit' name='action' value='".$row['id']."-like'><img src='img/like.png' class='like'></button>
@@ -126,7 +182,8 @@
         ?>
         </table>
     </div>
-    <div class="footer"></div>
+    <div class="footer">
+      <p>Testo a caso nel footer</p>
+    </div>
 </body>
 </html>
-
