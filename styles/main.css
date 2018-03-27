@@ -86,6 +86,10 @@ li.searchbar input[type=text]:focus {
     width: 300px;
 }
 
+li.searchbar input[type=text]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
 table.categoriestable {
     margin: 20px 0 5% 5%;
     width: 95%;

@@ -90,7 +90,7 @@
       }
     </script>
 </head>
-<body>
+<body onload="loadAuthors()">
     <div class="header">
         <div class="img">
             <p>Jokes</p>
@@ -102,13 +102,11 @@
                 <li class="singup"><a href="#about">Registrati</a></li>
                 <li class="login"><a href="#contact">Login</a></li>
                 <li class="searchbar">
+                    <for
                   <input type="text" placeholder="Cerca un autore"
-                    id="autocomplete" onkeyup="loadAuthors()"
-                    list="json-datalist">
+                    id="autocomplete" list="json-datalist">
                 </li>
-                <datalist id="json-datalist">
-
-                </datalist>
+                <datalist id="json-datalist"></datalist>
             </ul>
         </div>
     </div>
