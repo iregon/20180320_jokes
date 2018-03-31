@@ -86,6 +86,7 @@ li.searchbar input[type=text]:focus {
     width: 300px;
 }
 
+/* Nasconde la freccia del datalist */
 li.searchbar input[type=text]::-webkit-calendar-picker-indicator {
     display: none;
 }

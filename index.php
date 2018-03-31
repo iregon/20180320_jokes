@@ -53,9 +53,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="styles/joketable.css"/>
+    <!-- Material icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script type="text/javascript">
+      function loadAuthors() {
+        var dataList = document.getElementById('json-datalist');
+
+        // Clean datalist options
+        dataList.innerHTML = "";
+
+        var sugg = document.getElementById("author").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            var jsonOptions = JSON.parse(this.responseText);
+
+            jsonOptions.forEach(function(item) {
+              // Create a new <option> element.
+              var option = document.createElement('option');
+              // Set the value using the item in the JSON array.
+              option.value = item;
+              // Add the <option> element to the <datalist>.
+              dataList.appendChild(option);
+            });
+            // $( "#autocomplete" ).autocomplete({
+            //   source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ]
+            // });
+          }
+        };
+
+        // console.log("getAuthors.php?sugg=" + sugg);
+        xhttp.open("GET", "getAuthors.php?sugg=" + sugg, true);
+        xhttp.send();
+      }
+    </script>
 </head>
 <body onload="loadAuthors()">
     <div class="header">
@@ -71,10 +105,10 @@
                 <li class="searchbar">
                     <form action="">
                         <input type="text" placeholder="Cerca un autore"
-                        id="autocomplete" list="json-datalist">
+                          id="author" list="json-datalist">
+                        <datalist id="json-datalist"></datalist>
                     </form>
                 </li>
-                <datalist id="json-datalist"></datalist>
             </ul>
         </div>
     </div>
@@ -116,7 +150,7 @@
 
                     echo "<tr>
                         <td style='border-left:5px solid rgb(".
-                        rand(50,255).",".rand(50,255).",".rand(50,255).
+                        rand(0,255).",".rand(0,255).",".rand(0,255).
                         ")'>
                         <p class='text'>".
                         str_replace("\n", "<br>", $row['joketext']).
@@ -125,22 +159,32 @@
                         $row['name']." il ". $newDate.
                         "</p><br>
                         <div class='jokeinfo'>
-                        <div class='info'>
-                        <a href='detail.php?id=".
-                        $row['id'].
-                        "'><i class='material-icons'>&#xE5C8;</i></a>
+                        <div class='info float'>
+                          <a href='detail.php?id=".
+                          $row['id'].
+                          "'>
+                            <i class='fa fa-arrow-right'></i>
+                          </a>
                         </div>
-                        <span class='unlike'>".
-                        $row['unlikeCounter'].
-                        "</span>
+
                         <form action='".$_SERVER["PHP_SELF"]."' method='POST'>
-                            <button type='submit' name='action' value='".$row['id']."-unlike'><img src='img/unlike.png' class='unlike'></button>
+                            <button type='submit' name='action' value='".$row['id']."-unlike' class='floatWithText unlike'>
+                              <i class='fa fa-thumbs-down my-float unlike'>
+                              <span class='unlike'>".
+                              $row['unlikeCounter'].
+                              "</span>
+                              </i>
+                            </button>
                         </form>
-                        <span class='like'>".
-                        $row['likeCounter'].
-                        "</span>
+
                         <form action='".$_SERVER["PHP_SELF"]."' method='POST'>
-                            <button type='submit' name='action' value='".$row['id']."-like'><img src='img/like.png' class='like'></button>
+                            <button type='submit' name='action' value='".$row['id']."-like' class='floatWithText like'>
+                              <i class='fa fa-thumbs-up my-float like'>
+                              <span class='like'>".
+                              $row['likeCounter'].
+                              "</span>
+                              </i>
+                            </button>
                         </form>
                         </div></td></tr><tr><td class='spacer'></td></tr>";
                 }

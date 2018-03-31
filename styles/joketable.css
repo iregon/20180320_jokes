@@ -5,7 +5,7 @@ table.jokestable {
 }
 
 table.jokestable tr td.spacer {
-  height: 15px;
+  height: 25px;
   background-color: transparent;
 }
 
@@ -14,6 +14,7 @@ table.jokestable tr td {
     /* border: 1px solid #000; */
     background-color: #333;
     color: #fff;
+    border-radius: 2px;
 }
 
 table.jokestable tr td p.author {
@@ -27,65 +28,122 @@ table.jokestable tr td p.text {
 
 table.jokestable tr td div.jokeinfo {
   width: 100%;
-  background-color: #000;
+  /* background-color: #000; */
   text-align: right;
-  overflow: hidden;
+  /* overflow: hidden; */
   /* float: left; */
+  height: 0;
+  margin-top: 20px;
 }
 
-table.jokestable tr td div.jokeinfo img.like,
-table.jokestable tr td div.jokeinfo img.unlike,
 table.jokestable tr td div.jokeinfo span.like,
 table.jokestable tr td div.jokeinfo span.unlike,
 table.jokestable tr td div.jokeinfo button {
   float: right;
 }
 
-table.jokestable tr td div.jokeinfo img.like,
+/* table.jokestable tr td div.jokeinfo img.like,
 table.jokestable tr td div.jokeinfo img.unlike,
 table.jokestable tr td div.jokeinfo a.like,
 table.jokestable tr td div.jokeinfo a.unlike {
-  -webkit-filter: invert(100%);
   height: 28px;
-}
+} */
 
 table.jokestable tr td div.jokeinfo span.like,
 table.jokestable tr td div.jokeinfo span.unlike {
   height: 32px;
   /* vertical-align: middle; */
   line-height: 32px;
+  padding: 0 0 0 5px;
 }
 
-table.jokestable tr td div.jokeinfo img.unlike,
-table.jokestable tr td div.jokeinfo a.unlike,
-table.jokestable tr td div.jokeinfo button img.unlike {
-  margin: 2px 5px 0 20px;
+/* Impostazioni generali bottoni like e unlike */
+table.jokestable tr td div.jokeinfo button i.like,
+table.jokestable tr td div.jokeinfo button i.unlike {
+  color: #fff;
+  height: 32px;
+  line-height: 32px;
+  font-size: 20px;
 }
 
-table.jokestable tr td div.jokeinfo span.unlike {
+table.jokestable tr td div.jokeinfo button i.like {
+  /* margin: 0 5px 0 0; */
+
+}
+
+table.jokestable tr td div.jokeinfo button i.unlike {
+  /* margin: 0 5px 0 20px; */
+
+}
+
+table.jokestable tr td div.jokeinfo button.like {
+  background-color: #00f;
+  padding: 0 10px 0 10px;
+}
+
+table.jokestable tr td div.jokeinfo button.unlike {
+  background-color: #f00;
+  padding: 0 10px 0 10px;
+  margin-left: 15px;
+}
+
+/* table.jokestable tr td div.jokeinfo span.unlike {
   margin-right: 10px;
-}
+} */
 
-table.jokestable tr td div.jokeinfo img.like,
+/* table.jokestable tr td div.jokeinfo img.like,
 table.jokestable tr td div.jokeinfo a.like {
   margin: 2px 5px 0 0;
-}
+} */
 
 table.jokestable tr td div.info {
-  width: 32px;
+  /* width: 32px;
   height: 32px;
   background-color: blue;
   float: right;
-  text-align: center;
+  text-align: center; */
+  float: right;
+  background-color: #000;
+  margin: 0 15px 0 15px;
 }
 
-table.jokestable tr td div.info i {
+table.jokestable tr td div.info a i {
+  color: #fff;
+  line-height: 32px;
+  font-size: 18px;
+}
+
+/* table.jokestable tr td div.info i {
   line-height: 32px;
   color: #fff;
   width: 32px;
-}
+} */
 
 table.jokestable tr td div.jokeinfo button {
   background-color: #000;
   border-width: 0;
+}
+
+.float{
+	position:relative;
+	width:32px;
+	height:32px;
+	bottom:-16px;
+	/* right:40px; */
+	color:#FFF;
+	border-radius:16px;
+	text-align:center;
+	/* box-shadow: 2px 2px 3px #999; */
+}
+
+.floatWithText{
+	position:relative;
+	/* width:32px; */
+	height:32px;
+	bottom:-16px;
+	/* right:40px; */
+	color:#FFF;
+	border-radius:16px;
+	text-align:center;
+	/* box-shadow: 2px 2px 3px #999; */
 }

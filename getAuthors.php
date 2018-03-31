@@ -8,7 +8,8 @@
 
   $sql = "SELECT name
           FROM author
-          WHERE name LIKE '%".$sugg."%'";
+          WHERE name LIKE '%".$sugg."%'
+          ORDER BY name";
 
   $result = $conn->query($sql);
 
