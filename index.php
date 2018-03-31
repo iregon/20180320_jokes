@@ -57,7 +57,7 @@
     <script src="//code.jquery.com/jquery-1.12.4.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
-<body>
+<body onload="loadAuthors()">
     <div class="header">
         <div class="img">
             <p>Jokes</p>
@@ -69,13 +69,12 @@
                 <li class="singup"><a href="#about">Registrati</a></li>
                 <li class="login"><a href="#contact">Login</a></li>
                 <li class="searchbar">
-                  <input type="text" placeholder="Cerca un autore"
-                    id="autocomplete" onkeyup="loadAuthors()"
-                    list="json-datalist">
+                    <form action="">
+                        <input type="text" placeholder="Cerca un autore"
+                        id="autocomplete" list="json-datalist">
+                    </form>
                 </li>
-                <datalist id="json-datalist">
-
-                </datalist>
+                <datalist id="json-datalist"></datalist>
             </ul>
         </div>
     </div>
@@ -90,7 +89,8 @@
                 $conn->query("SET NAMES 'utf8'");
 
                 $sql = "SELECT name
-                        FROM category";
+                        FROM category
+                        ORDER BY name";
 
                 if($result = $conn->query($sql)) {
                     while ($row = $result->fetch_assoc()) {
