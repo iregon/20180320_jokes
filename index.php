@@ -146,14 +146,23 @@
 
             if($result = $conn->query($sql)) {
                 while ($row = $result->fetch_assoc()) {
-                    $newDate = date("d-m-Y", strtotime($row['jokedate']));
+                    $newDate = date("d/m/Y", strtotime($row['jokedate']));
+
+                    $row['joketext'] = str_replace("\n", "<br>", $row['joketext']);
+
+                    // Creazione della scritta "Continua a leggere..." in caso di
+                    //stringa troppo lunga
+                    if(strlen($row['joketext']) >= 200) {
+                      $row['joketext'] = substr($row['joketext'], 0, 200);
+                      $row['joketext'] .= "...<br><a href='detail.php?id=".$row['id']."'>Continua a leggere</a> ";
+                    }
 
                     echo "<tr>
                         <td style='border-left:5px solid rgb(".
                         rand(0,255).",".rand(0,255).",".rand(0,255).
                         ")'>
                         <p class='text'>".
-                        str_replace("\n", "<br>", $row['joketext']).
+                        $row['joketext'].
                         "</p>
                         <p class='author'>Creata da ".
                         $row['name']." il ". $newDate.

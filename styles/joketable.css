@@ -26,6 +26,10 @@ table.jokestable tr td p.text {
     padding: 20px 20px 0 20px;
 }
 
+table.jokestable tr td p.text a {
+  color: #0cf;
+}
+
 table.jokestable tr td div.jokeinfo {
   width: 100%;
   /* background-color: #000; */
