@@ -148,7 +148,20 @@ div.footer {
     }
 }
 
-@media screen and (max-width:300px) {
+@media screen and (max-width:650px) {
+  li.searchbar {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width:540px) {
+  li.searchbar input[type=text]:focus {
+      width: auto;
+  }
+}
+
+@media screen and (max-width:320px) {
     div.sidebar {
         float: none;
         display: none;

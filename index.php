@@ -100,8 +100,8 @@
             <ul class="navbar">
                 <li><a class="active" href="index.php">Home</a></li>
                 <li><a href="#news">News</a></li>
-                <li class="singup"><a href="#about">Registrati</a></li>
-                <li class="login"><a href="#contact">Login</a></li>
+                <li class="singup"><a href="register.php">Registrati</a></li>
+                <li class="login"><a href="login.php">Login</a></li>
                 <li class="searchbar">
                     <form action="">
                         <input type="text" placeholder="Cerca un autore"

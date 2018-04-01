@@ -1,0 +1,15 @@
+h2 {
+  margin-top: 30px;
+}
+
+p.error_msg {
+  background-color: #f00;
+  margin: 20px auto 20px auto;
+  width: 50%;
+  text-align: center;
+  padding: 5px;
+  border-radius: 2px;
+  color: #fff;
+}
+
+/* @media screen and (max-width:) */
