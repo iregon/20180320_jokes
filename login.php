@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Jokes :: Home</title>
+    <title>Jokes :: Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="styles/login.css"/>
@@ -22,8 +22,16 @@
             <ul class="navbar">
                 <li><a class="active" href="index.php">Home</a></li>
                 <li><a href="#news">News</a></li>
-                <li class="singup"><a href="register.php">Registrati</a></li>
-                <li class="login"><a href="login.php">Login</a></li>
+                <?php
+                  session_start();
+                  if(isset($_SESSION["idUtente"])) {
+                    echo "<li class='login'><a href='#'>Esci</a></li>";
+                  }
+                  else {
+                    echo "<li class='singup'><a href='register.php'>Registrati</a></li>
+                          <li class='login'><a href='login.php'>Login</a></li>";
+                  }
+                ?>
                 <li class="searchbar">
                     <form action="">
                         <input type="text" placeholder="Cerca un autore"
@@ -41,7 +49,6 @@
       <h2>Login</h2>
       <?php
         include("conn.php");
-        session_start();
         if($_POST) {
           if(isset($_POST["email"]) && isset($_POST["pass"])) {
             $pass = hash("sha256", $_POST["pass"], false);
@@ -74,7 +81,7 @@
       ?>
       <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post">
         E-mail<input type="text" name="email"><br>
-        Password<input type="text" name="pass"><br>
+        Password<input type="pass" name="pass"><br>
         <input type="submit" name="submit" value="ENTRA">
       </form>
     </div>
