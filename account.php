@@ -25,7 +25,7 @@
     <title>Jokes :: Account</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="styles/login.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles/account.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="styles/joketable.css"/>
     <!-- Material icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -72,7 +72,8 @@
                       AND a.idUtente = ".$_SESSION["idUtente"];
 
               if($result = $conn->query($sql)) {
-                echo "<table class='jokestable'>";
+                echo "<table class='jokestable'>
+                      <tr><th>Barzellette di ".$_SESSION["nomeUtente"]." ".$_SESSION["cognomeUtente"];
                   while ($row = $result->fetch_assoc()) {
                       $newDate = date("d/m/Y", strtotime($row['jokedate']));
 
@@ -92,8 +93,7 @@
                           <p class='text'>".
                           $row['joketext'].
                           "</p>
-                          <p class='author'>Creata da ".
-                          $row['name']." il ". $newDate.
+                          <p class='author'>Creata il ". $newDate.
                           "</p><br>
                           <div class='jokeinfo'>
                           <div class='info float'>

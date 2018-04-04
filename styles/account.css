@@ -1,0 +1,9 @@
+table.jokestable tr td p.text {
+  text-align: left;
+  width: 100%;
+}
+
+table.jokestable tr th {
+  font-size: 30px;
+  padding-bottom: 20px;
+}
