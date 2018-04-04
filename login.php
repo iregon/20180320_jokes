@@ -32,18 +32,8 @@
                           <li class='login'><a href='login.php'>Login</a></li>";
                   }
                 ?>
-                <li class="searchbar">
-                    <form action="">
-                        <input type="text" placeholder="Cerca un autore"
-                          id="author" list="json-datalist">
-                        <datalist id="json-datalist"></datalist>
-                    </form>
-                </li>
             </ul>
         </div>
-    </div>
-    <div class="sidebar">
-
     </div>
     <div class="content" style="width:100%;text-align:center">
       <h2>Login</h2>
@@ -52,7 +42,7 @@
         if($_POST) {
           if(isset($_POST["email"]) && isset($_POST["pass"])) {
             $pass = hash("sha256", $_POST["pass"], false);
-            $sql = "SELECT idUtente
+            $sql = "SELECT *
                     FROM users
                     WHERE email='".$_POST["email"]."'
                     AND pass='".$pass."'";
@@ -61,7 +51,11 @@
               if($result->num_rows == 1) {
                 $info = $result->fetch_array();
                 $_SESSION["idUtente"] = $info["idUtente"];
-                echo $info["idUtente"]." - Login effettuato";
+                $_SESSION["nomeUtente"] = $info["nome"];
+                $_SESSION["cognomeUtente"] = $info["cognome"];
+                $_SESSION["emailUtente"] = $info["email"];
+                // echo $info["idUtente"]." - Login effettuato";
+                header("Location: account.php");
               }
               else if ($result->num_rows > 1) {
                 echo "<p class='error_msg'>ERRORE: risultati multipli</p>";
