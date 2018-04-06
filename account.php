@@ -115,14 +115,14 @@
                             </i>
                           </button>
 
-                          <form action='editjoke.php' method='POST'>
+                          <!--<form action='editjoke.php' method='POST'>
                               <button type='submit' name='action' value='".$row['id']."' class='float edit'>
                                 <i class='fa fa-edit my-float edit'></i>
                               </button>
-                          </form>
+                          </form>-->
 
                           <form action='deletejoke.php' method='POST'>
-                              <button type='submit' name='action' value='".$row['id']."' class='float delete'>
+                              <button type='submit' name='id' value='".$row['id']."' class='float delete'>
                                 <i class='fa fa-trash my-float delete'></i>
                               </button>
                           </form>
