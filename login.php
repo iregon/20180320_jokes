@@ -75,7 +75,7 @@
       ?>
       <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post">
         E-mail<input type="text" name="email"><br>
-        Password<input type="pass" name="pass"><br>
+        Password<input type="password" name="pass"><br>
         <input type="submit" name="submit" value="ENTRA">
       </form>
     </div>

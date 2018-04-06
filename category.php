@@ -8,7 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="styles/joketable.css"/>
+    <!-- Material icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   </head>
   <body>
     <div class="header">
@@ -29,9 +32,6 @@
             <tr><td class="categoriestitle">Barzellette su...</td></tr>
             <?php
                 include("conn.php");
-                header("Content-Type: text/html;charset=utf-8");
-
-                $conn->query("SET NAMES 'utf8'");
 
                 $sql = "SELECT name
                         FROM category";
@@ -50,7 +50,8 @@
     <div class="content">
         <table class="jokestable">
         <?php
-            $sql = "SELECT j.id, j.joketext, j.jokedate , a.name, j.like, j.unlike
+
+            $sql = "SELECT j.id, j.joketext, j.jokedate , a.name, j.likeCounter, j.unlikeCounter
                     FROM joke j, author a, jokecategory jc, category c
                     WHERE c.name = '".$_GET["category"]."'
                     AND j.idauthor = a.id
@@ -63,34 +64,48 @@
 
                     echo "<tr>
                         <td style='border-left:5px solid rgb(".
-                        rand(50,255).",".rand(50,255).",".rand(50,255).
+                        rand(0,255).",".rand(0,255).",".rand(0,255).
                         ")'>
                         <p class='text'>".
-                        str_replace("\n", "<br>", $row['joketext']).
+                        $row['joketext'].
                         "</p>
                         <p class='author'>Creata da ".
                         $row['name']." il ". $newDate.
                         "</p><br>
                         <div class='jokeinfo'>
-                        <div class='info'>
-                        <a href='detail.php?id=".
-                        $row['id'].
-                        "'><i class='material-icons'>&#xE5C8;</i></a>
+                        <div class='info float'>
+                          <a href='detail.php?id=".
+                          $row['id'].
+                          "'>
+                            <i class='fa fa-arrow-right'></i>
+                          </a>
                         </div>
-                        <span class='unlike'>".
-                        $row['unlike'].
-                        "</span>
-                        <img src='img/unlike.png' class='unlike'>
-                        <span class='like'>".
-                        $row['like'].
-                        "</span>
-                        <img src='img/like.png' class='like'>
+
+                        <form action='".$_SERVER["PHP_SELF"]."' method='POST'>
+                            <button type='submit' name='action' value='".$row['id']."-unlike' class='floatWithText unlike'>
+                              <i class='fa fa-thumbs-down my-float unlike'>
+                              <span class='unlike'>".
+                              $row['unlikeCounter'].
+                              "</span>
+                              </i>
+                            </button>
+                        </form>
+
+                        <form action='".$_SERVER["PHP_SELF"]."' method='POST'>
+                            <button type='submit' name='action' value='".$row['id']."-like' class='floatWithText like'>
+                              <i class='fa fa-thumbs-up my-float like'>
+                              <span class='like'>".
+                              $row['likeCounter'].
+                              "</span>
+                              </i>
+                            </button>
+                        </form>
                         </div></td></tr><tr><td class='spacer'></td></tr>";
                 }
             }
         ?>
         </table>
     </div>
-    <div class="footer"></div>
+    <div class="footer">dasffgjdh</div>
   </body>
 </html>
