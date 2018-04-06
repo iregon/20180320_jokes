@@ -1,9 +1,4 @@
-<?php
-  session_start();
-  if(!isset($_SESSION["idUtente"])) {
-    header("Location: login.php");
-  }
-?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="styles/login.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles/newjoke.css"/>
     <!-- Material icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Fontawesome -->
@@ -27,6 +23,11 @@
         <?php include("menu.php"); ?>
     </div>
     <div class="content" style="width:100%;text-align:center">
+      <?php
+        if(!isset($_SESSION["idUtente"])) {
+          header("Location: login.php");
+        }
+      ?>
       <h2>Nuova barzelletta</h2>
       <?php
         include("conn.php");
@@ -58,8 +59,8 @@
         }
       ?>
       <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post">
-        Testo<br>
-        <textarea rows="4" cols="50" name="text"></textarea><br>
+        Testo della barzelletta<br>
+        <textarea rows="4" cols="50" name="text" placeholder="Inserisci qui il testo della barzelletta..." required></textarea><br>
         Categoria <select name="category">
           <?php
             $sql = "SELECT id, name

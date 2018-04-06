@@ -1,21 +1,4 @@
-<?php
-  include("conn.php");
-  session_start();
 
-  $conn->query("SET NAMES 'utf8'");
-
-  if(isset($_GET["action"]) && $_GET["action"] == "newAuthor") {
-    if($_POST["name"] == "") $_POST["name"] = "Anonimo";
-    $sql = "INSERT INTO author (name, email)
-            VALUES ('".$_POST["name"]."', '".$_SESSION["emailUtente"]."')";
-
-    if($result = $conn->query($sql)) {
-      // echo "Autore creato";
-    }
-
-    header("Location: account.php");
-  }
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +24,22 @@
     </div>
     <div class="content" style="width:100%;text-align:center">
       <?php
+        include("conn.php");
+
+        $conn->query("SET NAMES 'utf8'");
+
+        if(isset($_GET["action"]) && $_GET["action"] == "newAuthor") {
+          if($_POST["name"] == "") $_POST["name"] = "Anonimo";
+          $sql = "INSERT INTO author (name, email, idUtente)
+                  VALUES ('".$_POST["name"]."', '".$_SESSION["emailUtente"]."', '".$_SESSION["idUtente"]."')";
+
+          if($result = $conn->query($sql)) {
+            echo "<p>".$sql."</p>";
+          }
+
+          header("Location: account.php");
+        }
+
         if(isset($_SESSION["idUtente"])) {
           $sql = "SELECT id
                   FROM author a, users u
@@ -69,6 +68,7 @@
               if($result = $conn->query($sql)) {
                 echo "<table class='jokestable'>
                       <tr><th>Barzellette di ".$_SESSION["nomeUtente"]." ".$_SESSION["cognomeUtente"];
+                if($result->num_rows > 0) {
                   while ($row = $result->fetch_assoc()) {
                       $newDate = date("d/m/Y", strtotime($row['jokedate']));
 
@@ -130,16 +130,29 @@
                           </div></td></tr><tr><td class='spacer'></td></tr>";
                   }
                   echo "</table>";
+                }
+                else {
+                  echo "</table><p class='nojokes'>Non ci sono barzellette</p>";
+                }
+                echo "<div class='floatButton'>
+                        <form action='newjoke.php' method='post'>
+                          <button type='submit' name='button'>
+                            <i class='fa fa-plus'></i>
+                          </button>
+                        </form>
+                      </div>";
               }
             }
             else {
       ?>
-        <h2>Diventa un autore</h2>
-        <form action="<?php $_SERVER["PHP_SELF"] ?>?action=newAuthor" method="post">
-          Nome <input type="text" name="name" value="<?php echo $_SESSION["cognomeUtente"]." ".$_SESSION["nomeUtente"] ?>"><br>
-          <p><i>(Questo è il nome che verrà visualizzato insieme alla barzelletta, lasciare vuoto se si vuole essere anonimi)</i></p>
-          <input type="submit" name="submit" value="INVIA">
-        </form>
+        <div class="newAuthor">
+          <h2>Diventa un autore</h2>
+          <form action="<?php $_SERVER["PHP_SELF"] ?>?action=newAuthor" method="post">
+            Nome <input type="text" name="name" value="<?php echo $_SESSION["cognomeUtente"]." ".$_SESSION["nomeUtente"] ?>"><br>
+            <p><i>(Questo è il nome che verrà visualizzato insieme alla barzelletta, lasciare vuoto se si vuole essere anonimi)</i></p>
+            <input type="submit" name="submit" value="INVIA">
+          </form>
+        </div>
       <?php
             }
           }
@@ -150,16 +163,7 @@
       ?>
     </div>
     <div class="footer">
-      <p>Testo a caso nel footer</p>
+      <?php include("footer.php"); ?>
     </div>
-
-    <div class="floatButton">
-      <form action="newjoke.php" method="post">
-        <button type="submit" name="button">
-          <i class="fa fa-plus"></i>
-        </button>
-      </form>
-    </div>
-
 </body>
 </html>

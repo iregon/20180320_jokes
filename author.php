@@ -38,7 +38,7 @@
 
       $result = $conn->query($query);
 
-      header("Location: ".$_SERVER["PHP_SELF"]."?id=".$info[2]);
+      header("Location: ".$_SERVER["PHP_SELF"]."?author=".$info[2]);
     }
   }
 ?>
@@ -65,16 +65,16 @@
         </div>
         <?php include("menu.php"); ?>
     </div>
-    <div class="content" style="width:100%;text-align:center">
+    <div class="content" style="width:100%;text-align:left">
       <table class="jokestable">
         <?php
           include("conn.php");
-          $id = $_GET["id"];
+          $author = $_GET["author"];
 
           $sql = "SELECT j.id, j.joketext, j.jokedate , a.name, j.likeCounter, j.unlikeCounter
                   FROM joke j, author a
                   WHERE j.idauthor = a.id
-                  AND j.id = ".$id;
+                  AND a.name = '".$author."'";
 
           if($result = $conn->query($sql)) {
               while ($row = $result->fetch_assoc()) {
@@ -101,8 +101,8 @@
                         </a>
                       </div>
 
-                      <form action='".$_SERVER["PHP_SELF"]."?id=".$id."' method='POST'>
-                          <button type='submit' name='action' value='".$row['id']."-unlike-".$id."' class='floatWithText unlike'>
+                      <form action='".$_SERVER["PHP_SELF"]."?author=".$author."' method='POST'>
+                          <button type='submit' name='action' value='".$row['id']."-unlike-".$author."' class='floatWithText unlike'>
                             <i class='fa fa-thumbs-down my-float unlike'>
                             <span class='unlike'>".
                             $row['unlikeCounter'].
@@ -111,8 +111,8 @@
                           </button>
                       </form>
 
-                      <form action='".$_SERVER["PHP_SELF"]."?id=".$id."' method='POST'>
-                          <button type='submit' name='action' value='".$row['id']."-like-".$id."' class='floatWithText like'>
+                      <form action='".$_SERVER["PHP_SELF"]."?author=".$author."' method='POST'>
+                          <button type='submit' name='action' value='".$row['id']."-like-".$author."' class='floatWithText like'>
                             <i class='fa fa-thumbs-up my-float like'>
                             <span class='like'>".
                             $row['likeCounter'].

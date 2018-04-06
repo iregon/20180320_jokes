@@ -1,0 +1,12 @@
+textarea {
+  resize: none;
+  margin-bottom: 20px;
+}
+
+div.content h2 {
+  margin-bottom: 20px;
+}
+
+div.content form input[type=submit] {
+  margin-top: 20px;
+}

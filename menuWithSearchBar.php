@@ -18,9 +18,9 @@
               }
             ?>
             <li class="searchbar">
-                <form action="">
+                <form action="author.php" method="get">
                     <input type="text" placeholder="Cerca un autore"
-                      id="author" list="json-datalist">
+                      id="author" list="json-datalist" name="author">
                     <datalist id="json-datalist"></datalist>
                 </form>
             </li>

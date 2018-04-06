@@ -163,18 +163,25 @@ div.footer {
         float: none;
         width: 100%;
     }
+
+    ul.navbar li.searchbar {
+      display: none;
+    }
 }
 
 @media screen and (max-width:650px) {
   li.searchbar {
-    width: 100%;
-    text-align: center;
+    display: none;
   }
 }
 
 @media screen and (max-width:540px) {
   li.searchbar input[type=text]:focus {
       width: auto;
+  }
+
+  ul.navbar li.searchbar {
+    display: none;
   }
 }
 
@@ -191,5 +198,9 @@ div.footer {
 
     ul.navbar li {
         width: 100%;
+    }
+
+    ul.navbar li.searchbar {
+      display: none;
     }
 }
