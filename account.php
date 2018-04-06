@@ -120,6 +120,18 @@
                             </i>
                           </button>
 
+                          <form action='editjoke.php' method='POST'>
+                              <button type='submit' name='action' value='".$row['id']."' class='float edit'>
+                                <i class='fa fa-edit my-float edit'></i>
+                              </button>
+                          </form>
+
+                          <form action='deletejoke.php' method='POST'>
+                              <button type='submit' name='action' value='".$row['id']."' class='float delete'>
+                                <i class='fa fa-trash my-float delete'></i>
+                              </button>
+                          </form>
+
                           </div></td></tr><tr><td class='spacer'></td></tr>";
                   }
                   echo "</table>";
@@ -145,5 +157,14 @@
     <div class="footer">
       <p>Testo a caso nel footer</p>
     </div>
+
+    <div class="floatButton">
+      <form action="newjoke.php" method="post">
+        <button type="submit" name="button">
+          <i class="fa fa-plus"></i>
+        </button>
+      </form>
+    </div>
+
 </body>
 </html>
