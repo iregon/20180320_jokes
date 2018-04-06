@@ -94,6 +94,7 @@ li.searchbar input[type=text]::-webkit-calendar-picker-indicator {
 table.categoriestable {
     margin: 20px 0 5% 5%;
     width: 95%;
+    border-collapse: collapse;
 }
 
 td.categoriestitle {
@@ -102,6 +103,22 @@ td.categoriestitle {
     padding: 10px;
     text-transform: uppercase;
     /* margin-bottom: 10px; */
+    border-radius: 2px 2px 0 0;
+}
+
+td.categoriesname {
+  background-color: #fff;
+  padding: 7px 10px;
+}
+
+td.categoriesname a {
+  text-decoration: none;
+  color: #000;
+}
+
+td.categoriesname a:hover {
+  text-decoration: none;
+  color: blue;
 }
 
 div.img {

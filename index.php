@@ -120,15 +120,13 @@
                 include("conn.php");
                 // header("Content-Type: text/html;charset=utf-8");
 
-                $conn->query("SET NAMES 'utf8'");
-
                 $sql = "SELECT name
                         FROM category
                         ORDER BY name";
 
                 if($result = $conn->query($sql)) {
                     while ($row = $result->fetch_assoc()) {
-                        echo "<tr><td><a href='category.php?category=".
+                        echo "<tr><td class='categoriesname'><a href='category.php?category=".
                           $row['name']."'>".
                           $row['name'].
                           "</a></td></tr>";
