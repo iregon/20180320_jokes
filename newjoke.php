@@ -1,10 +1,16 @@
+<?php
+  session_start();
+  if(!isset($_SESSION["idUtente"])) {
+    header("Location: login.php");
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Jokes :: Registrati</title>
+    <title>Jokes :: Nuova barzelletta</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="styles/login.css"/>
@@ -18,68 +24,60 @@
         <div class="img">
             <p>Jokes</p>
         </div>
-        <div id="navbar">
-            <ul class="navbar">
-                <li><a class="active" href="index.php">Home</a></li>
-                <li><a href="#news">News</a></li>
-                <?php
-                  session_start();
-                  if(isset($_SESSION["idUtente"])) {
-                    echo "<li class='login'><a href='#'>Esci</a></li>";
-                  }
-                  else {
-                    echo "<li class='singup'><a href='register.php'>Registrati</a></li>
-                          <li class='login'><a href='login.php'>Login</a></li>";
-                  }
-                ?>
-            </ul>
-        </div>
+        <?php include("menu.php"); ?>
     </div>
     <div class="content" style="width:100%;text-align:center">
-      <h2>Registrtati</h2>
+      <h2>Nuova barzelletta</h2>
       <?php
         include("conn.php");
-        if($_POST) {
-          if(isset($_POST["name"]) && isset($_POST["surname"]) && isset($_POST["email"]) && isset($_POST["pass"])) {
+        if(isset($_POST["text"])) {
+          $text = htmlspecialchars($_POST["text"], ENT_QUOTES, "UTF-8");
+          $sql = "INSERT INTO joke (joketext, jokedate, idauthor, likeCounter, unlikeCounter)
+                  VALUES ('".$text."', NOW(), ".$_SESSION["idAutore"].", 0, 0)";
 
-            $sql = "SELECT email
-                    FROM users
-                    WHERE email='".$_POST["email"]."'";
+          if($result = $conn->query($sql)) {
+            echo "joke aggiunta";
+            $sql = "SELECT id
+                    FROM joke
+                    WHERE joketext = '".$text."'";
 
             if($result = $conn->query($sql)) {
-              if($result->num_rows >= 1) {
-                echo "<p class='error_msg'>Esiste gia un utente con questa e-mail</p>";
+              echo "id prelevato";
+              $jokeid = $result->fetch_assoc()["id"];
+              $categoryid = $_POST["category"];
+              $sql = "INSERT INTO jokecategory (jokeid, categoryid)
+                      VALUES (".$jokeid.", ".$categoryid.")";
+              if($result = $conn->query($sql)) {
+                header("Location: account.php");
               }
-              else {
-                $pass = hash("sha256", $_POST["pass"], false);
-                $sql = "INSERT INTO users (nome, cognome, email, pass)
-                        VALUES ('".$_POST["name"]."', '".$_POST["surname"]."', '".$_POST["email"]."', '".$pass."')";
-
-                if($result = $conn->query($sql)) {
-                  // echo "Autore creato";
-                }
-                header("Location: login.php");
-              }
-            }
-            else {
-              echo "<p class='error_msg'>ERRORE: impossibile contattare il database</p>";
             }
           }
           else {
-            echo "<p class='error_msg'>ERRORE: campi necessari non ricevuti</p>";
+            echo "<p class='error_msg'>ERRORE: impossibile contattare il database</p>";
           }
         }
       ?>
       <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post">
-        Nome<input type="text" name="name" required><br>
-        Cognome<input type="text" name="surname" required><br>
-        E-mail<input type="email" name="email" required><br>
-        Password<input type="password" name="pass" required><br>
+        Testo<br>
+        <textarea rows="4" cols="50" name="text"></textarea><br>
+        Categoria <select name="category">
+          <?php
+            $sql = "SELECT id, name
+                  FROM category
+                  ORDER BY name";
+
+            if($result = $conn->query($sql)) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<option value='".$row["id"]."'>".$row["name"]."</option>";
+                }
+            }
+          ?>
+        </select><br>
         <input type="submit" name="submit" value="INVIA">
       </form>
     </div>
     <div class="footer">
-      <p>Testo a caso nel footer</p>
+      <?php include("footer.php"); ?>
     </div>
 </body>
 </html>

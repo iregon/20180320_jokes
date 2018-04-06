@@ -37,22 +37,7 @@
         <div class="img">
             <p>Jokes</p>
         </div>
-        <div id="navbar">
-            <ul class="navbar">
-                <li><a class="active" href="index.php">Home</a></li>
-                <li><a href="#news">News</a></li>
-                <?php
-
-                  if(isset($_SESSION["idUtente"])) {
-                    echo "<li class='login'><a href='#'>Esci</a></li>";
-                  }
-                  else {
-                    echo "<li class='singup'><a href='register.php'>Registrati</a></li>
-                          <li class='login'><a href='login.php'>Login</a></li>";
-                  }
-                ?>
-            </ul>
-        </div>
+        <?php include("menu.php"); ?>
     </div>
     <div class="content" style="width:100%;text-align:center">
       <?php
@@ -66,6 +51,16 @@
             if($result->num_rows == 1) {
 
               //L'utente è un autore
+
+              $sql = "SELECT id
+                      FROM author
+                      WHERE idUtente = ".$_SESSION["idUtente"];
+
+              if($result = $conn->query($sql)) {
+                $row = $result->fetch_assoc();
+                $_SESSION["idAutore"] = $row["id"];
+              }
+
               $sql = "SELECT j.id, j.joketext, j.jokedate , a.name, j.likeCounter, j.unlikeCounter
                       FROM joke j, author a
                       WHERE j.idauthor = a.id

@@ -18,22 +18,7 @@
         <div class="img">
             <p>Jokes</p>
         </div>
-        <div id="navbar">
-            <ul class="navbar">
-                <li><a class="active" href="index.php">Home</a></li>
-                <li><a href="#news">News</a></li>
-                <?php
-                  session_start();
-                  if(isset($_SESSION["idUtente"])) {
-                    echo "<li class='login'><a href='#'>Esci</a></li>";
-                  }
-                  else {
-                    echo "<li class='singup'><a href='register.php'>Registrati</a></li>
-                          <li class='login'><a href='login.php'>Login</a></li>";
-                  }
-                ?>
-            </ul>
-        </div>
+        <?php include("menu.php"); ?>
     </div>
     <div class="content" style="width:100%;text-align:center">
       <h2>Login</h2>
@@ -80,7 +65,7 @@
       </form>
     </div>
     <div class="footer">
-      <p>Testo a caso nel footer</p>
+      <?php include("footer.php"); ?>
     </div>
 </body>
 </html>

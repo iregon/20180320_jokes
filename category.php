@@ -18,14 +18,7 @@
         <div class="img">
             <p>Jokes</p>
         </div>
-        <div id="navbar">
-            <ul class="navbar">
-                <li><a class="active" href="index.php">Home</a></li>
-                <li><a href="#news">News</a></li>
-                <li class="singup"><a href="#about">Registrati</a></li>
-                <li class="login"><a href="#contact">Login</a></li>
-            </ul>
-        </div>
+        <?php include("menu.php"); ?>
     </div>
     <div class="sidebar">
         <table class="categoriestable">
@@ -38,7 +31,7 @@
 
                 if($result = $conn->query($sql)) {
                     while ($row = $result->fetch_assoc()) {
-                        echo "<tr><td><a href='category.php?category=".
+                        echo "<tr><td class='categoriesname'<a href='category.php?category=".
                           $row['name']."'>".
                           $row['name'].
                           "</a></td></tr>";
@@ -106,6 +99,8 @@
         ?>
         </table>
     </div>
-    <div class="footer">dasffgjdh</div>
+    <div class="footer">
+      <?php include("footer.php"); ?>
+    </div>
   </body>
 </html>

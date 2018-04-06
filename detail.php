@@ -142,7 +142,7 @@
       </table>
     </div>
     <div class="footer">
-      <p>Testo a caso nel footer</p>
+      <?php include("footer.php"); ?>
     </div>
 </body>
 </html>

@@ -96,21 +96,7 @@
         <div class="img">
             <p>Jokes</p>
         </div>
-        <div id="navbar">
-            <ul class="navbar">
-                <li><a class="active" href="index.php">Home</a></li>
-                <li><a href="#news">News</a></li>
-                <li class="singup"><a href="register.php">Registrati</a></li>
-                <li class="login"><a href="login.php">Login</a></li>
-                <li class="searchbar">
-                    <form action="">
-                        <input type="text" placeholder="Cerca un autore"
-                          id="author" list="json-datalist">
-                        <datalist id="json-datalist"></datalist>
-                    </form>
-                </li>
-            </ul>
-        </div>
+        <?php include("menuWithSearchBar.php"); ?>
     </div>
     <div class="sidebar">
       <p id="demo"></p>
@@ -200,7 +186,7 @@
         </table>
     </div>
     <div class="footer">
-      <p>Testo a caso nel footer</p>
+      <?php include("footer.php"); ?>
     </div>
 </body>
 </html>
