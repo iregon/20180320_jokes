@@ -1,3 +1,47 @@
+<?php
+  include("conn.php");
+  if($_POST) {
+
+    $info = explode("-", $_POST["action"]);
+
+    if(empty($_COOKIE["counter_like"])) {
+      setcookie("counter_like", "", 0, "/");
+      // echo "Cookie creato";
+    }
+
+    $id_list = explode("-", $_COOKIE["counter_like"], -1);
+
+    $is_break = false;
+    foreach ($id_list as $id) {
+        if($info[0] == $id) {
+            $is_break = true;
+            break;
+        }
+    }
+
+    if(!$is_break) {
+      $cookie = $_COOKIE["counter_like"];
+      setcookie("counter_like", $cookie.$info[0]."-", 0, "/");
+
+      if($info[1] == 'like')
+      {
+        echo "string";
+          $update = "likeCounter=likeCounter+1";
+      }
+      if($info[1] == 'unlike')
+      {
+        echo "string";
+          $update = "unlikeCounter=unlikeCounter+1";
+      }
+
+      $query = "UPDATE joke SET ".$update." WHERE id=".$info[0];
+
+      $result = $conn->query($query);
+
+      header("Location: ".$_SERVER["PHP_SELF"]."?id=".$info[2]);
+    }
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,13 +97,6 @@
 
                   $row['joketext'] = str_replace("\n", "<br>", $row['joketext']);
 
-                  // Creazione della scritta "Continua a leggere..." in caso di
-                  //stringa troppo lunga
-                  if(strlen($row['joketext']) >= 200) {
-                    $row['joketext'] = substr($row['joketext'], 0, 200);
-                    $row['joketext'] .= "...<br><a href='detail.php?id=".$row['id']."'>Continua a leggere</a> ";
-                  }
-
                   echo "<tr>
                       <td style='border-left:5px solid rgb(".
                       rand(0,255).",".rand(0,255).",".rand(0,255).
@@ -79,8 +116,8 @@
                         </a>
                       </div>
 
-                      <form action='".$_SERVER["PHP_SELF"]."' method='POST'>
-                          <button type='submit' name='action' value='".$row['id']."-unlike' class='floatWithText unlike'>
+                      <form action='".$_SERVER["PHP_SELF"]."?id=".$id."' method='POST'>
+                          <button type='submit' name='action' value='".$row['id']."-unlike-".$id."' class='floatWithText unlike'>
                             <i class='fa fa-thumbs-down my-float unlike'>
                             <span class='unlike'>".
                             $row['unlikeCounter'].
@@ -89,8 +126,8 @@
                           </button>
                       </form>
 
-                      <form action='".$_SERVER["PHP_SELF"]."' method='POST'>
-                          <button type='submit' name='action' value='".$row['id']."-like' class='floatWithText like'>
+                      <form action='".$_SERVER["PHP_SELF"]."?id=".$id."' method='POST'>
+                          <button type='submit' name='action' value='".$row['id']."-like-".$id."' class='floatWithText like'>
                             <i class='fa fa-thumbs-up my-float like'>
                             <span class='like'>".
                             $row['likeCounter'].
