@@ -21,7 +21,7 @@
         <?php include("menu.php"); ?>
     </div>
     <div class="content" style="width:100%;text-align:center">
-      <h2>Registrtati</h2>
+      <h2>Registrati</h2>
       <?php
         include("conn.php");
         if($_POST) {

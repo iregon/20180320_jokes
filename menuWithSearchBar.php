@@ -10,7 +10,8 @@
             <?php
               session_start();
               if(isset($_SESSION["idUtente"])) {
-                echo "<li class='login'><a href='logout.php'>Esci</a></li>";
+                echo "<li class='login'><a href='logout.php'>Esci</a></li>
+                      <li class='login'><a href='account.php'>Account</a></li>";
               }
               else {
                 echo "<li class='singup'><a href='register.php'>Registrati</a></li>
