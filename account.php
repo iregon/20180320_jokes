@@ -17,10 +17,8 @@
 </head>
 <body>
     <div class="header">
-        <div class="img">
-            <p>Jokes</p>
-        </div>
-        <?php include("menu.php"); ?>
+      <?php include("header.php"); ?>
+      <?php include("menu.php"); ?>
     </div>
     <div class="content" style="width:100%;text-align:center">
       <?php

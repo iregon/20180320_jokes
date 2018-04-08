@@ -124,31 +124,50 @@ td.categoriesname a:hover {
 
 div.img {
     background-image: url("../img/bg_home.jpg");
+    filter: blur(5px);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 -30px;
-    padding: 150px 0 150px 0;
+    /* padding: 200px 0 200px 0; */
     text-align: center;
+    z-index: 1;
+    display: block;
+    box-sizing: border-box;
+    height: 400px;
 }
 
-div.img p {
-  font-size: 100px;
-  text-transform: uppercase;
-  font-weight: bold;
-  /* border: 1px solid #fff; */
-  color: #000;
-  /* text-shadow:
-   -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
-     2px 2px 0 #000; */
+div.text {
+    z-index: 9999;
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    height: 400px;
+    width: 100%;
+    text-align: center;
+    margin: auto 0 auto 0;
+    vertical-align: middle;
+}
+
+div.text p {
     font-family: 'Comfortaa', cursive;
-    text-shadow: 3px -1px 2px rgb(128, 128, 128);
+    text-shadow: 0px 0px 15px rgb(76, 70, 136);
+    font-weight: bold;
+    color: rgb(1, 2, 48);
+    filter: blur(1px);
+}
+
+div.text p.title {
+    font-size: 100px;
+    text-transform: uppercase;
+}
+
+div.text p.subtitle {
+    font-size: 30px;
 }
 
 div.footer {
-  clear: both;
+    clear: both;
 }
 
 @media screen and (max-width:700px) {

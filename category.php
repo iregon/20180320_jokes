@@ -61,9 +61,7 @@
   </head>
   <body>
     <div class="header">
-        <div class="img">
-            <p>Jokes</p>
-        </div>
+        <?php include("header.php"); ?>
         <?php include("menu.php"); ?>
     </div>
     <div class="sidebar">

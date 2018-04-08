@@ -93,33 +93,29 @@
 </head>
 <body onload="loadAuthors()">
     <div class="header">
-        <div class="img">
-            <p>Jokes</p>
-        </div>
-        <?php include("menuWithSearchBar.php"); ?>
+      <?php include("header.php"); ?>
+      <?php include("menuWithSearchBar.php"); ?>
     </div>
     <div class="sidebar">
-      <p id="demo"></p>
-        <table class="categoriestable">
-            <tr><td class="categoriestitle">Barzellette su...</td></tr>
-            <?php
-                include("conn.php");
-                // header("Content-Type: text/html;charset=utf-8");
+      <table class="categoriestable">
+        <tr><td class="categoriestitle">Barzellette su...</td></tr>
+        <?php
+          include("conn.php");
 
-                $sql = "SELECT name
-                        FROM category
-                        ORDER BY name";
+          $sql = "SELECT name
+                  FROM category
+                  ORDER BY name";
 
-                if($result = $conn->query($sql)) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr><td class='categoriesname'><a href='category.php?category=".
-                          $row['name']."'>".
-                          $row['name'].
-                          "</a></td></tr>";
-                    }
-                }
-            ?>
-        </table>
+          if($result = $conn->query($sql)) {
+            while ($row = $result->fetch_assoc()) {
+              echo "<tr><td class='categoriesname'><a href='category.php?category=".
+                    $row['name']."'>".
+                    $row['name'].
+                    "</a></td></tr>";
+            }
+          }
+        ?>
+      </table>
     </div>
     <div class="content">
         <table class="jokestable">
